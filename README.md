@@ -100,4 +100,144 @@ MenuShowSpawnerStatus(spawnerTbl)
 
 
 ## Documents
+### `UniversalSpawner:New(name, routeTbl, templateTbl, subMenu, menuSide)`
+UniversalSpawner constructor.
 
+**Parameters:**
+<table>
+  <tr>
+    <td>#string <b>name</b></td>
+    <td>Name of the spawner shown in the spawned group names and in the F10 menu (if set).</td>
+  </tr>
+  <tr>
+    <td>#table of #string <b>routeTable</b></td>
+    <td>Group names in ME set as routes for spawn.</td>
+  </tr>
+  <tr>
+    <td>#table of #string <b>templateTable</b></td>
+    <td>Group names in ME set as templates for spawn.</td>
+  </tr>
+  <tr>
+    <td>#string <b>subMenu</b></td>
+    <td>(Optional) Name of the sub menu branch in F10 menu. Default is nil (no F10 menu will be added).</td>
+  </tr>
+  <tr>
+    <td>#table/enum <a href="https://wiki.hoggitworld.com/view/DCS_enum_coalition">coalition.side</a> <b>menuSide</b></td>
+    <td>(Optional) Coalition in which the F10 menu will be added. Default is nil (added for all).</td>
+  </tr>
+</table>
+
+**Return values:**
+<table>
+  <tr>
+    <td>#UniversalSpawner</td>
+    <td>self</td>
+  </tr>
+</table>
+
+---
+### `UniversalSpawner:SpawnAI(scheduled)`
+Spawn a group into the map. 
+
+If parameter "scheduled" is set to true, total limit and on-field limit checks will apply. Normally you should just leave it empty.
+
+**Parameters:**
+<table>
+  <tr>
+    <td>#boolean <b>scheduled</b></td>
+    <td>(Optional) Whether is scheduled spawn or not. Default is false.</td>
+  </tr>
+</table>
+
+**Return values:**
+<table>
+  <tr>
+    <td>#nil</td>
+  </tr>
+</table>
+
+---
+### `UniversalSpawner:SetRouteVar(radiusVar, heightVar)`
+Set the variation of waypoint locations. Only apply to waypoints with type "turning point". Both value should be ≥ 0.
+
+**Parameters:**
+<table>
+  <tr>
+    <td>#number <b>radiusVar</b></td>
+    <td>Radius variation of waypoints (in ft.)</td>
+  </tr>
+  <tr>
+    <td>#number <b>heightVar</b></td>
+    <td>Height variation of waypoints (in ft.) For ground units this will be ignored.</td>
+  </tr>
+</table>
+
+**Return values:**
+<table>
+  <tr>
+    <td>#nil</td>
+  </tr>
+</table>
+
+---
+### `UniversalSpawner:SetLevel(level, hasMessage)`
+Set/Change the current scheduled spawn level.
+
+**Parameters:**
+<table>
+  <tr>
+    <td>#number <b>level</b></td>
+    <td>The level of scheduled spawn to be set (1 ~ 8).</td>
+  </tr>
+  <tr>
+    <td>#boolean <b>hasMessage</b></td>
+    <td>(Optional) Show message in log and in game. Default is false.</td>
+  </tr>
+</table>
+
+**Return values:**
+<table>
+  <tr>
+    <td>#nil</td>
+  </tr>
+</table>
+
+---
+### `UniversalSpawner:SetScheduledSpawnLimit(limit)`
+Set the limit of total scheduled spawns.
+
+**Parameters:**
+<table>
+  <tr>
+    <td>#number <b>limit</b></td>
+    <td>The number limit of total scheduled spawns. Set to 0 means no limit.</td>
+  </tr>
+</table>
+
+**Return values:**
+<table>
+  <tr>
+    <td>#nil</td>
+  </tr>
+</table>
+
+---
+### `UniversalSpawner:SetOnFieldSpawnLimit(limit)`
+Set the limit of on-field scheduled spawns at any time. 
+
+Scheduled spawn will pause if limit is reached. No effect on groups spawned by calling `UniversalSpawner:SpawnAI()` directly or using F10 menu command "Spawn One Group Now".
+
+**Parameters:**
+<table>
+  <tr>
+    <td>#number <b>limit</b></td>
+    <td>The number limit of on field scheduled spawns. Set to 0 means no limit.</td>
+  </tr>
+</table>
+
+**Return values:**
+<table>
+  <tr>
+    <td>#nil</td>
+  </tr>
+</table>
