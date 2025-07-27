@@ -64,11 +64,11 @@ local templateTbl = {"template_001", "template_002", "template_003"}
 Second, create an UniversalSpawner instance.
 ```lua
 -- Create a spawner with a name "MySpawner" without F10 menu
-local spawner = UniversalSpawner:New("MySpawner", routeTable, templateTable)
+local spawner = UniversalSpawner:New("MySpawner", routeTbl, templateTbl)
 
 -- OR
 -- Create a spawner with F10 menu options for the blue side, situated inside the submenu "MySubMenu"
-local spawner = UniversalSpawner:New("MySpawner", routeTable, templateTable, "MySubMenu", coalition.side.BLUE)
+local spawner = UniversalSpawner:New("MySpawner", routeTbl, templateTbl, "MySubMenu", coalition.side.BLUE)
 ```
 Then, add some settings to the spawner and call the function `UniversalSpawner:Run()` last. The spawner will start working.
 ```lua
