@@ -32,7 +32,7 @@ Second, load UniversalSpawner via DO SCRIPT FILE.
 
 Last, load your own script containing the settings for spawners either via DO SCRIPT FILE or DO SCRIPT `assert(loadfile("PATH-TO-YOUR-SCRIPT"))()` if you want to avoid reload everytime after making a change.
 
-![image]()
+![image](img/Screen_250728_000545.png)
 
 ### Placing Routes and Templates
 Routes and templates are groups placed in mission editor for the spawner to take informations from.
@@ -97,7 +97,7 @@ local spawnerTbl = {spawner_1, spawner_2, spawner_3, spawner_4}
 MenuShowSpawnerStatus(spawnerTbl)
 ```
 ## Examples
-
+_WIP_
 
 ## Documents
 ### `UniversalSpawner:New(name, routeTbl, templateTbl, subMenu, menuSide)`
