@@ -35,6 +35,8 @@ Last, load your own script containing the settings for spawners either via DO SC
 ![image]()
 
 ### Placing Routes and Templates
+Routes and templates are groups placed in mission editor for the spawner to take informations from.
+
 **_Routes_** are where the spawner will choose to spawn units from. Set as late activation and things below: 
 - Waypoints
 - Tasks
@@ -53,6 +55,47 @@ Some notes:
 - Routes and templates can be shared between different spawners as long as they have the same unit category and task.
 - Name the group name of routes and templates accordingly! This will make your life easier later.
 
+### Spawner Setup
+First, create two tables containing the group names of routes and templates respectively.
+```lua
+local routeTbl = {"route_001", "route_002", "route_003", "route_004"}
+local templateTbl = {"template_001", "template_002", "template_003"}
+```
+Second, create an UniversalSpawner instance.
+```lua
+-- Create a spawner with a name "MySpawner" without F10 menu
+local spawner = UniversalSpawner:New("MySpawner", routeTable, templateTable)
+
+-- OR
+-- Create a spawner with F10 menu options for the blue side, situated inside the submenu "MySubMenu"
+local spawner = UniversalSpawner:New("MySpawner", routeTable, templateTable, "MySubMenu", coalition.side.BLUE)
+```
+Then, add some settings to the spawner and call the function `UniversalSpawner:Run()` last. The spawner will start working.
+```lua
+-- Add some settings
+-- Set the schedules for some levels
+spawner:SetScheduleTable(1, {})
+spawner:SetScheduleTable(2, {{600, 0.5}, {900, 0.5}})
+spawner:SetScheduleTable(3, {{240, 0.2, 240, 0.2}})
+spawner:SetScheduleTable(4, {{120, 0.4, 120, 0.4, 3000}})
+
+-- Set variation for waypoints
+spawner:SetRouteVar(36000, 4000)
+
+-- Set initial level at start
+spawner:SetLevel(2)
+
+-- Last
+spawner:Run()
+```
+Additionally, to add a F10 menu sommand to show the status of your spawners:
+```lua
+-- Create a table of all your spawners you want to check
+local spawnerTbl = {spawner_1, spawner_2, spawner_3, spawner_4}
+
+-- The helper function
+MenuShowSpawnerStatus(spawnerTbl)
+```
 ## Examples
 
 
