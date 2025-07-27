@@ -181,13 +181,13 @@ Set the variation of waypoint locations. Only apply to waypoints with type "turn
 
 ---
 ### `UniversalSpawner:SetLevel(level, hasMessage)`
-Set/Change the current scheduled spawn level.
+Set/Change the current scheduled spawn level. Default is 1.
 
 **Parameters:**
 <table>
   <tr>
     <td>#number <b>level</b></td>
-    <td>The level of scheduled spawn to be set (1 ~ 8).</td>
+    <td>The current level of scheduled spawn to be set (1 ~ 8).</td>
   </tr>
   <tr>
     <td>#boolean <b>hasMessage</b></td>
@@ -241,3 +241,94 @@ Scheduled spawn will pause if limit is reached. No effect on groups spawned by c
     <td>#nil</td>
   </tr>
 </table>
+
+---
+### `UniversalSpawner:SetScheduleTable(level, schedules)`
+Set the schedules of scheduled spawn for each level. This function should be called BEFORE `UniversalSpawner:Run()`.
+
+Only the levels set via this function will be shown in the F10 menu as an option.
+
+Only the schedules of the current level will be active.
+
+**Parameters:**
+<table>
+  <tr>
+    <td>#number <b>level</b></td>
+    <td>The level of scheduled spawn to set schedules (1 ~ 8).</td>
+  </tr>
+  <tr>
+    <td>#table of #table <b>schedules</b></td>
+    <td>See below.</td>
+  </tr>
+</table>
+
+**Return values:**
+<table>
+  <tr>
+    <td>#nil</td>
+  </tr>
+</table>
+
+#### Schedule table
+
+Parameter **schedules** is a table of tables looks like below:
+
+`{ {A, B, C, D, E}, {A, B, C, D, E}, ... }`, where:
+
+- **A:** time for the first spawn.
+- **B:** time variation of the first spawn (0 ~ 1) i.e., actual time for the first spawn = A ± (A * B)
+- **C:** time interval between each subsequent spawns.
+- **D:** time variation of subsequent spawns (0 ~ 1) i.e., actual time for the spawn = A + C * i ± (C * D) where i = 1, 2, 3, ...
+- **E:** time for the scheduled spawning to stop.
+
+All unit in seconds. Time count begins when `UniversalSpawner:Run()` is called.
+
+Examples:
+
+- Empty `{}` spawns nothing.
+- `{A, B, nil, nil, nil}` or `{A, B}` spawns only once.
+- `{A, B, C, D, nil}` or `{A, B, C, D}` spawns repeatly on schedule.
+- `{A, B, C, D, E}` spawns repeatly on schedule until stop time is reached.
+
+---
+### `UniversalSpawner:Run()`
+Activate the spawner. 
+
+**Parameters:**
+<table>
+  <tr>
+    <td>#nil</td>
+  </tr>
+</table>
+
+**Return values:**
+<table>
+  <tr>
+    <td>#nil</td>
+  </tr>
+</table>
+
+---
+### `MenuShowSpawnerStatus(UniversalSpawnerTbl, menuText)`
+A helper function to create a F10 menu command for checking spawners' status.
+
+**Parameters:**
+<table>
+  <tr>
+    <td>#table of #UniversalSpawner <b>UniversalSpawnerTbl</b></td>
+    <td>Table of UniversalSpawner instances. Any element not a table (such as a string) will create a blank line for better readability.</td>
+  </tr>
+  <tr>
+    <td>#string <b>menuText</b></td>
+    <td>(Optional) Alternative text for F10 menu command.</td>
+  </tr>
+</table>
+
+**Return values:**
+<table>
+  <tr>
+    <td>#nil</td>
+  </tr>
+</table>
+
+---
