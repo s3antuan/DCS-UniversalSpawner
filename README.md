@@ -79,6 +79,10 @@ spawner:SetScheduleTable(2, {{600, 0.5}, {900, 0.5}})
 spawner:SetScheduleTable(3, {{240, 0.2, 240, 0.2}})
 spawner:SetScheduleTable(4, {{120, 0.4, 120, 0.4, 3000}})
 
+-- Set limit for scheduled spawn
+spawner:SetOnFieldSpawnLimit(3)
+spawner:SetScheduledSpawnLimit(20)
+
 -- Set variation for waypoints
 spawner:SetRouteVar(36000, 4000)
 
@@ -98,6 +102,19 @@ MenuShowSpawnerStatus(spawnerTbl)
 ```
 ## Examples
 _WIP_
+
+A pure spawner for integration with other scripts:
+```lua
+-- Setup a bare-bones spawner
+local spawner = UniversalSpawner:New("SimpleSpawner", routeTbl, templateTbl)
+spawner:SetRouteVar(6000, 0)
+spawner:Run()
+
+-- Somewhere in other scripts...
+if SomeConditionIsTrue then
+  spawner:SpawnAI()
+end
+```
 
 ## Documents
 ### `UniversalSpawner:New(name, routeTbl, templateTbl, subMenu, menuSide)`
